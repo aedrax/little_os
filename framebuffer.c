@@ -1,4 +1,9 @@
+#include "framebuffer.h"
 #include "io.h"
+
+/* The memory mapped address for the framebuffer */
+char* fb = (char*)0x000B8000;
+unsigned short fb_current_pos = 0;
 
 /** fb_move_cursor:
  *  Moves the cursor of the framebuffer to the given position
@@ -25,7 +30,7 @@ void fb_move_cursor(unsigned short pos)
 void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg)
 {
     fb[i] = c;
-    fb[i + 1] = ((fg & 0x0F) << 4) | (bg & 0x0F)
+    fb[i + 1] = ((fg & 0x0F) << 4) | (bg & 0x0F);
 }
 
 /** write:
@@ -34,12 +39,12 @@ void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg)
 *  @param buf The character buffer
 *  @param len The length of the buffer
 */
-int write(char *buf, unsigned int len)
+void write(char *buf, unsigned int len)
 {
-    int i;
+    unsigned short i;
     for(i = 0; i < len; i++)
     {
-        fb_write_cell(fb_current_pos, buf[i], 2, 8);
-        fb_current_pos++;
+        fb_write_cell(fb_current_pos, buf[i], 8, 2);
+        fb_current_pos += 2;
     }
 }
