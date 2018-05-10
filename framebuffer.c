@@ -1,7 +1,10 @@
 #include "framebuffer.h"
 #include "io.h"
 
-/* The memory mapped address for the framebuffer */
+/* The memory mapped address for the framebuffer 
+*   Bit:     | 15 14 13 12 11 10 9 8 | 7 6 5 4 | 3 2 1 0 |
+*   Content: | ASCII                 | FG      | BG      |
+*/
 char* fb = (char*)0x000B8000;
 unsigned short fb_current_pos = 0;
 
