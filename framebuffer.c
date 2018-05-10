@@ -22,6 +22,24 @@ void fb_move_cursor(unsigned short pos)
 *  Writes a character with the given foreground and background to position i
 *  in the framebuffer.
 *
+* Value Color
+*  0   Black
+*  1   Blue
+*  2   Green
+*  3   Cyan
+*  4   Red
+*  5   Magenta
+*  6   Brown
+*  7   Light Grey
+*  8   Dark Grey
+*  9   Light Blue
+*  10  Light Green
+*  11  Light Cyan
+*  12  Light Red
+*  13  Light Magenta
+*  14  Light Brown
+*  15  White
+*
 *  @param i  The location in the framebuffer
 *  @param c  The character
 *  @param fg The foreground color
@@ -44,7 +62,7 @@ void write(char *buf, unsigned int len)
     unsigned short i;
     for(i = 0; i < len; i++)
     {
-        fb_write_cell(fb_current_pos, buf[i], 8, 2);
+        fb_write_cell(fb_current_pos, buf[i], 0, 15);
         fb_current_pos += 2;
     }
 }
